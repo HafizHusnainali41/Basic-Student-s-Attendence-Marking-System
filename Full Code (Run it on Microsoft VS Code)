@@ -1,0 +1,96 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Basic_Student_Attendance_System
+{
+    internal class Program
+    {
+       class Student
+        {
+            public string name;
+            public string status;
+        }
+        class program
+        {
+            static void Main(string[] args)
+            {
+                Console.WriteLine("Basic Student's Attendence Marking System ");
+
+                Console.WriteLine("\nEnter Your Name Please:");
+                string Username = Console.ReadLine();
+
+                Console.WriteLine($"\nWelcome {Username} to Our Basic Student's Attendence System");
+
+                Console.WriteLine("\nEnter How many Students You Wanna Mark?");
+                int totalstudents = Convert.ToInt32(Console.ReadLine());
+
+                List<Student> students = new List<Student>();
+
+                for (int i = 1; i <= totalstudents; i++)
+                {
+                    Student student = new Student();
+
+                    Console.WriteLine($"\nEnter Student's Name: {i}");
+                    student.name = Console.ReadLine();
+
+                    Console.WriteLine("\nEnter 'P' For Present and Enter 'A' For Absent");
+                    student.status = Console.ReadLine().ToUpper();
+
+                    if(student.status !="A" && student.status != "P")
+                    {
+                        Console.WriteLine("\nInvalid Input Absent Will be marked ");
+                        student.status = "A";
+                    }
+
+                    students.Add(student);
+
+                }
+
+                int presentcount = 0; int absentcount = 0;
+                Console.WriteLine("Result:=====All Students=====");
+
+                //Present Students
+
+                Console.WriteLine("\nThe Present Students Are: ");
+                foreach (var s in students)
+                {
+                    if(s.status == "P")
+                    {
+                        Console.WriteLine("- " + s.name);
+                        presentcount++;
+                    }
+                }
+
+
+                //Absent Students
+
+                Console.WriteLine("\nThe Absent Students Are: ");
+
+                foreach (var s in students)
+                {
+                   if(s.status == "A")
+                    {
+                        Console.WriteLine("- " + s.name);
+                        absentcount++;
+                    }
+                }
+
+                double presentpercentage = ((double) presentcount /  totalstudents)*100;
+                double absentpercentage = ((double) absentcount /  totalstudents)*100;
+
+                Console.WriteLine($"\nThe Total Students Are: {totalstudents}");
+
+                Console.WriteLine($"\nThe Present Students Are: {presentcount}  ({presentpercentage:F2}%)");
+                Console.WriteLine($"The Absent Students Are: {absentcount}  ({absentpercentage:F2}%)");
+
+                Console.WriteLine("\nPress Any Key to Exist");
+                Console.ReadKey();
+            }
+        }
+    }
+}
